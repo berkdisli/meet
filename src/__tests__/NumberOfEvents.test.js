@@ -3,21 +3,22 @@ import { shallow } from 'enzyme';
 import NumberOfEvents from '../NumberOfEvents';
 
 describe('<NumberOfEvents /> component', () => {
-
   let NumberOfEventsWrapper;
-  beforeAll(() => {
-    NumberOfEventsWrapper = shallow(<NumberOfEvents />)
+   beforeAll(() => {
+    NumberOfEventsWrapper = shallow(<NumberOfEvents/>);
   });
 
-  test('render text input', () => {
-    expect(NumberOfEventsWrapper.find('.NumberOfEvents')).toHaveLength(1);
+  test('render textBox', () => {
+    expect(NumberOfEventsWrapper.find('.numberOfEvents')).toHaveLength(1);
   });
 
-  test("render text input correctly from prop", () => {
-    const numberOfEvents = NumberOfEventsWrapper.prop("numberOfEvents");
-    expect(NumberOfEventsWrapper.find(".number-of-events").prop("value")).toBe(
-      numberOfEvents
-    );
+  test('return amount of events, when amount is changed manually', () => {
+    NumberOfEventsWrapper.setState({
+        manualAmountEvents: 2
+    })
+    const eventObject = { target: {value: 1}};
+    NumberOfEventsWrapper.find('.amountEventsOnePage').simulate('change', eventObject);
+    expect(NumberOfEventsWrapper.state('manualAmountEvents')).toBe(1);
   });
 
-})
+});

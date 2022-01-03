@@ -5,45 +5,38 @@ import { mockData } from '../mock-data';
 
 describe('<Event /> component', () => {
 
-  let EventWrapper;
-  beforeAll(() => {
-    EventWrapper = shallow(<Event event={mockData[1]} />);
-  });
-
-  test("Summary is displayed", () => {
-    expect(EventWrapper.find(".summary")).toHaveLength(1);
-  });
-
-  test("Location is displayed", () => {
-    expect(EventWrapper.find(".location")).toHaveLength(1);
-  });
-
-  test("Date and timezone are displayed", () => {
-    expect(EventWrapper.find(".start-date")).toHaveLength(1);
-  });
-
-  test("Show details button is rendered", () => {
-    expect(EventWrapper.find(".show-details")).toHaveLength(1);
-  });
-
-  test("event element is collapsed by default", () => {
-    expect(EventWrapper.state("collapsed")).toBe(true);
-  });
-
-  test("clicking on show details button shows extra details", () => {
-    EventWrapper.setState({
-      collapsed: true,
+    let EventWrapper;
+    let event = mockData[0];
+    beforeAll(() => {
+        EventWrapper = shallow(<Event event={event} />);
     });
-    EventWrapper.find(".show-details").simulate("click");
-    expect(EventWrapper.state("collapsed")).toBe(false);
-  });
 
-  test("clicking on hide details button hides extra details", () => {
-    EventWrapper.setState({
-      collapsed: false,
+    test('render summary', () => {
+      expect(EventWrapper.find('.summary')).toHaveLength(1);
     });
-    EventWrapper.find(".hide-details").simulate("click");
-    expect(EventWrapper.state("collapsed")).toBe(true);
-  });
 
+    test('render location', () => {
+      expect(EventWrapper.find('.location')).toHaveLength(1);
+    });
+
+    test('render startDatetime', () => {
+      expect(EventWrapper.find('.startDatetime')).toHaveLength(1);
+    });
+
+    test('render startTimezone', () => {
+      expect(EventWrapper.find('.startTimezone')).toHaveLength(1);
+    });
+
+    test('render description', () => {
+      expect(EventWrapper.find('.description')).toHaveLength(1);
+    });
+
+    test('render details button', () => {
+        expect(EventWrapper.find('.detailsButton')).toHaveLength(1);
+      });
+
+    test('open details section via onClick on details button', () => {
+        EventWrapper.find('.detailsButton').at(0).simulate('click');
+        expect(EventWrapper.state('detailsShown')).toBe(true);
+    });
 });
