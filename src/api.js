@@ -2,20 +2,20 @@ import { mockData } from './mock-data';
 import axios from 'axios';
 import NProgress from 'nprogress';
 
- export const extractLocations = (events) => {
-    var extractLocations = events.map((event) => event.location);
-    var locations = [...new Set(extractLocations)];
-    return locations;
-  };
+export const extractLocations = (events) => {
+  var extractLocations = events.map((event) => event.location);
+  var locations = [...new Set(extractLocations)];
+  return locations;
+};
 
-  // Access Token Found in localStorage
+// Access Token Found in localStorage
 
-const checkToken = async (accessToken) => {
+export const checkToken = async (accessToken) => {
   const result = await fetch(
-      `https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=${accessToken}`
+    `https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=${accessToken}`
   )
-  .then((res) => res.json())
-  .catch((error) => error.json());
+    .then((res) => res.json())
+    .catch((error) => error.json());
 
   return result;
 };
@@ -51,17 +51,18 @@ export const getAccessToken = async () => {
   // No access token was found in local storage
   const tokenCheck = accessToken && (await checkToken(accessToken));
 
-  if(!accessToken || tokenCheck.error) {
-      await localStorage.removeItem("access_token");
-      const searchParams = new URLSearchParams(window.location.search);
-      const code = await searchParams.get("code");
-
-      if (!code) {
-          const results = await axios.get("https://ulviemx6o1.execute-api.eu-central-1.amazonaws.com/dev/api/get-auth-url");
-          const { authUrl } = results.data;
-          return (window.location.href = authUrl);
-      }
-      return code && getToken(code);
+  if (!accessToken || tokenCheck.error) {
+    await localStorage.removeItem("access_token");
+    const searchParams = new URLSearchParams(window.location.search);
+    const code = await searchParams.get("code");
+    if (!code) {
+      const results = await axios.get(
+        "https://ulviemx6o1.execute-api.eu-central-1.amazonaws.com/dev/api/get-auth-url"
+      );
+      const { authUrl } = results.data;
+      return (window.location.href = authUrl);
+    }
+    return code && getToken(code);
   }
   return accessToken;
 }
@@ -85,10 +86,10 @@ const getToken = async (code) => {
   const { access_token } = await fetch(
     'https://ulviemx6o1.execute-api.eu-central-1.amazonaws.com/dev/api/token' + '/' + encodeCode
   )
-  .then((res) => {
+    .then((res) => {
       return res.json();
-  })
-  .catch((error) => error);
+    })
+    .catch((error) => error);
 
   access_token && localStorage.setItem("access_token", access_token);
 

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import './App.css';
 
 class Event extends Component {
   state = {
@@ -6,42 +7,41 @@ class Event extends Component {
   }
 
   showDetails = () => {
-    this.setState ({
-      detailsShown : true
+    this.setState({
+      detailsShown: !this.state.detailsShown
     })
   }
 
   render() {
-      const { event } = this.props;
+    const { event } = this.props;
 
-      const hide = {display : 'none'};
-      const show = {display : 'grid'};
-
-      return (
-        <ul className="Event">
-          <button className="detailsButton" onClick={this.showDetails}>
-            See Details</button>
-          <div className="eventDetails">
-            {this.state.detailsShown === false? hide : show }
-            <li className="summary">
-              {event.summary}
-            </li>
-            <li className="location">
-              {event.location}
-            </li>
-            <li className="startDatetime">
-              {event.start.datetime}
-            </li>
-            <li className="startTimezone">
-              {event.start.timezone}
-            </li>
+    // const hide = { display: 'none' };
+    // const show = { display: 'grid' };
+    return (
+      <ul className="event">
+        <button className="detailsButton" onClick={this.showDetails}>{this.state.detailsShown ? "Hide Details" : "See Details"}</button>
+        <div className="eventDetails">
+          {/* {this.state.detailsShown === false ? hide : show} */}
+          <li className="summary name">
+            {event.summary}
+          </li>
+          <li className="location">
+            {event.location}
+          </li>
+          <li className="startDatetime">
+            {event.start.datetime}
+          </li>
+          <li className="startTimezone">
+            {event.start.timezone}
+          </li>
+          {this.state.detailsShown &&
             <li className="description">
               {event.description}
-            </li>
-          </div>
-        </ul>
-      );
-    }
+            </li>}
+        </div>
+      </ul>
+    );
+  }
 }
 
 export default Event;
