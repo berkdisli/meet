@@ -5,7 +5,7 @@
 }
 
 body{
-  background-color: rgba(199, 82, 82, 0.842);
+  background-color: #e5c2c0
 }
 .App * {
   box-sizing: border-box;
@@ -92,7 +92,7 @@ input[type="number"] {
 }
 
 .suggestions > li:hover {
-  background-color: #bcdcdb;
+  background-color: #e0b0ad;
 }
 
 .event {
