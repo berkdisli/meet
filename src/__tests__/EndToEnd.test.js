@@ -1,3 +1,4 @@
+import { done } from 'nprogress';
 import puppeteer from 'puppeteer';
 
 describe('show/hide an event details', () => {
