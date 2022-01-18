@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import { ErrorAlert } from './Alert';
 
 class NumberOfEvents extends Component {
   state = {
     numberOfEvents: 32,
-    infoText: ''
+    errorText: ''
   }
 
   toggleAmountOfEvents = (event) => {
@@ -11,13 +12,13 @@ class NumberOfEvents extends Component {
     if (number <= 0 || number > 32) {
       this.setState({
         numberOfEvents: number,
-        infoText: 'Please select a number between 1 - 32!'
+        errorText: 'Please select a number between 1 - 32!'
       });
     }
     else {
       this.setState({
         numberOfEvents: number,
-        infoText: ''
+        errorText: ''
       });
       this.props.updateEventCount(event.target.value);
 
@@ -36,7 +37,7 @@ class NumberOfEvents extends Component {
             value={this.state.numberOfEvents}
             onChange={this.toggleAmountOfEvents}
           />
-          <p className="error-text">{this.state.infoText}</p>
+          <ErrorAlert text={this.state.errorText} />
         </div>
       </div>
     );
