@@ -19,7 +19,6 @@ class Event extends Component {
     // const show = { display: 'grid' };
     return (
       <ul className="event">
-        <button className="detailsButton" onClick={this.showDetails}>{this.state.detailsShown ? "Hide Details" : "See Details"}</button>
         <div className="eventDetails">
           {/* {this.state.detailsShown === false ? hide : show} */}
           <li className="summary name">
@@ -39,6 +38,7 @@ class Event extends Component {
               {event.description}
             </li>}
         </div>
+        <button className="detailsButton" onClick={this.showDetails}>{this.state.detailsShown ? "Hide Details" : "See Details"}</button>
       </ul>
     );
   }

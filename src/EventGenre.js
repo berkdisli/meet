@@ -1,21 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { PieChart, Pie, Cell, ResponsiveContainer, Legend } from "recharts";
+import React, { useEffect, useState } from 'react';
+import { PieChart, Pie, Cell, ResponsiveContainer, Legend } from 'recharts';
+
+const genres = ['React', 'JavaScript', 'Node', 'jQuery', 'AngularJS'];
+const colors = ['#d0427f', '#f8a01f', '#528272', '#f15f4b', '#7dbeb8'];
 
 const EventGenre = ({ events }) => {
     const [data, setData] = useState([]);
 
-    const genres = ["React", "JavaScript", "Node", "jQuery", "Angular JS"];
-    const COLORS = ["#CD853F", "#F5FFFA", "#88abe6", "#93eaa1", "#efd4de"];
-
     const getData = () => {
-        let data = genres.map((genre) => {
+        const data = genres.map((genre) => {
             const value = events.filter((event) =>
-                event.summary.split(" ").includes(genre)
+                event.summary.split(' ').includes(genre)
             ).length;
 
-            return { name: genre, value };
+            return { name: genre, value: value };
         });
-        data = data.filter((data) => data.value);
         return data;
     };
 
@@ -24,29 +23,25 @@ const EventGenre = ({ events }) => {
     }, // eslint-disable-next-line
         [events]);
 
+
     return (
-        <ResponsiveContainer height={400}>
+        <ResponsiveContainer height={400} >
             <PieChart width={400} height={400}>
                 <Pie
                     data={data}
-                    cx="50%"
-                    cy="50%"
-                    labelLine={false}
+                    cx='50%'
+                    cy='50%'
+                    innerRadius={10}
+                    dataKey="value"
+                    fill="#8884d8"
                     label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
                     outerRadius={80}
-                    fill="#8884d8"
-                    dataKey="value"
                 >
                     {data.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} name={entry.name} />
+                        <Cell key={`cell-${index}`} fill={colors[index % colors.length]} name={entry.name} />
                     ))}
                 </Pie>
-                <Legend
-                    layout="horizontal"
-                    verticalAlign="bottom"
-                    align="center"
-                    height={45}
-                />
+                <Legend layout="horizontal" verticalAlign="top" align="center" height={45} />
             </PieChart>
         </ResponsiveContainer>
     );
