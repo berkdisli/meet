@@ -26,17 +26,21 @@ class App extends Component {
     infoText: ''
   }
 
-  updateEvents = (location) => {
+  updateEvents = (location, numberOfEvents) => {
     getEvents().then((events) => {
       const locationEvents = (location === 'all') ?
         events :
         events.filter((event) => event.location === location);
-      this.setState({
-        events: locationEvents,
-        currentLocation: location
-      });
+
+      const eventsToShow = locationEvents.slice(0, numberOfEvents);
+      if (this.mounted) {
+        this.setState({
+          events: eventsToShow,
+          currentLocation: location
+        });
+      }
     });
-  }
+  };
 
   updateEventCount = (eventCount) => {
     const { currentLocation } = this.state;
@@ -88,7 +92,7 @@ class App extends Component {
                 top: 20, right: 20, bottom: 20, left: 20,
               }}>
               <CartesianGrid fill='#fff' />
-              <XAxis type="category" dataKey="city" name="City" />
+              <XAxis type="category" dataKey="city" name="City" background="black" color='white' />
               <YAxis type="number" dataKey="number" name="Number of events" allowDecimals={false} />
               <Tooltip cursor={{ strokeDasharray: '3 3' }} />
               <Scatter name="" data={this.getData()} fill="#8884d8" />
