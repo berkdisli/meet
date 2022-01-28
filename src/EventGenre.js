@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend } from 'recharts';
 
 const genres = ['React', 'JavaScript', 'Node', 'jQuery', 'AngularJS'];
-const colors = ['#d0427f', '#f8a01f', '#528272', '#f15f4b', '#7dbeb8'];
+const colors = ['#d0427f', '#f8a01f', '#528272', '#f15f4b', '#116181'];
 
 const EventGenre = ({ events }) => {
     const [data, setData] = useState([]);
@@ -41,7 +41,7 @@ const EventGenre = ({ events }) => {
                         <Cell key={`cell-${index}`} fill={colors[index % colors.length]} name={entry.name} />
                     ))}
                 </Pie>
-                <Legend layout="horizontal" verticalAlign="top" align="center" height={45} />
+                <Legend layout="horizontal" verticalAlign="bottom" align="center" height={45} />
             </PieChart>
         </ResponsiveContainer>
     );
