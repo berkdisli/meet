@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend } from 'recharts';
 
@@ -8,13 +9,14 @@ const EventGenre = ({ events }) => {
     const [data, setData] = useState([]);
 
     const getData = () => {
-        const data = genres.map((genre) => {
+        let data = genres.map((genre) => {
             const value = events.filter((event) =>
-                event.summary.split(' ').includes(genre)
+                event.summary.split(" ").includes(genre)
             ).length;
 
-            return { name: genre, value: value };
+            return { name: genre, value };
         });
+        data = data.filter((data) => data.value);
         return data;
     };
 
@@ -23,19 +25,18 @@ const EventGenre = ({ events }) => {
     }, // eslint-disable-next-line
         [events]);
 
-
     return (
-        <ResponsiveContainer height={400} >
+        <ResponsiveContainer width={'99%'} height={400}>
             <PieChart width={400} height={400}>
                 <Pie
                     data={data}
-                    cx='50%'
-                    cy='50%'
-                    innerRadius={10}
-                    dataKey="value"
-                    fill="#8884d8"
-                    label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                    cx="50%"
+                    cy="50%"
+                    labelLine={false}
+                    label={({ name, percent }) => `${name} ${(percent * 100).toFixed(1)}%`}
                     outerRadius={80}
+                    fill="#8884d8"
+                    dataKey="value"
                 >
                     {data.map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={colors[index % colors.length]} name={entry.name} />
