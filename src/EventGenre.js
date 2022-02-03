@@ -20,6 +20,7 @@ const EventGenre = ({ events }) => {
         return data;
     };
 
+
     useEffect(() => {
         setData(() => getData());
     }, // eslint-disable-next-line
@@ -35,6 +36,7 @@ const EventGenre = ({ events }) => {
                     labelLine={false}
                     label={({ name, percent }) => `${name} ${(percent * 100).toFixed(1)}%`}
                     outerRadius={80}
+                    innerRadius={60}
                     fill="#8884d8"
                     dataKey="value"
                 >
